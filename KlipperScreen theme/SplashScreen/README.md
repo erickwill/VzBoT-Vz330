@@ -15,7 +15,9 @@ OMXplayer is deprecated. Please us this:
 Please use cvlc with this commands, that's only choice on debian bullseye.
 Need to run commands as pi user since root is not allowed to use vlc/cvlc.
 
-/etc/systemd/system/splash.service
+## On Debian Bookworm
+
+Create a file with `sudo nano /etc/systemd/system/splash.service` and add the following contents:
 
 ```
 [Unit]
@@ -33,7 +35,13 @@ StandardOutput=tty
 WantedBy=sysinit.target
 ```
 
-/etc/rc.local
+Then, activate with `sudo systemctl enable splash.service`.
+
+## On Debian Buster or older
+
+This is for older versions of Raspberry Pi Linux, MainSailOS, etc.
+
+Add to `/etc/rc.local`:
 ```
 su - pi -c "sleep 2 | DISPLAY=:0 /usr/bin/cvlc -f --quiet --no-video-title --play-and-exit --mmal-display DSI-1 /home/pi/bootvideo/intro2.mp4"
 ```
